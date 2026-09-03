@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AERA</title>
+<meta name="description" content="AERA — a 2003 cameraphone, simulated, for iOS. Your iPhone camera run through a sensor and a memory card that stopped being made twenty years ago.">
+<meta name="theme-color" content="#0B0B0C">
+<meta property="og:title" content="AERA">
+<meta property="og:description" content="A 2003 cameraphone, simulated. For iOS.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B0B0C'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%23D69449' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%23D69449'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#menu">Skip to menu</a>
+<canvas id="grain" aria-hidden="true"></canvas>
+<div class="scan" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div id="flash" aria-hidden="true"></div>
+
+<header class="statusbar">
+  <a class="sb-mark" href="./">AERA</a>
+  <span class="mid">
+    <span class="rec" aria-hidden="true"></span>
+    <span><time id="clock">00:00</time> · <span id="date">—</span></span>
+  </span>
+  <span class="sb-right">
+    <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <span class="meter" aria-hidden="true"></span>
+    <span>MMC·24</span>
+  </span>
+</header>
+
+<main>
+  <section class="viewfinder">
+    <div class="brackets" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <div class="frame-counter" aria-hidden="true">001<b>/</b>024</div>
+
+    <h1 class="wordmark">AERA</h1>
+    <p class="tagline">Capture another era.</p>
+    <p class="subhead">A 2003 cameraphone, simulated. Your iPhone camera, run through a sensor and a memory card that stopped being made twenty years ago.</p>
+
+    <div class="hero-controls">
+      <!-- Swap href + label once the App Store ID exists -->
+      <a class="cta" href="https://apps.apple.com/app/id0000000000">On the App Store</a>
+      <button class="shutter" type="button" aria-label="Fire the shutter"><span>REC</span></button>
+    </div>
+    <p class="cta-note">Free · Pro tier · ad-supported</p>
+  </section>
+
+  <section class="specs">
+    <div class="wrap">
+      <dl class="spec-grid">
+        <button type="button" aria-expanded="false">
+          <dt>Sensor</dt><dd>4:3 crop</dd>
+          <span class="detail">The frame is cropped to 4:3 and worked at its own low resolution, the way a 2003 phone sensor read the world.</span>
+        </button>
+        <button type="button" aria-expanded="false">
+          <dt>Finish</dt><dd>Film grain</dd>
+          <span class="detail">Grain, veiling glare, chromatic aberration and a soft lens — a full pipeline, not a filter over a modern photo.</span>
+        </button>
+        <button type="button" aria-expanded="false">
+          <dt>Card</dt><dd>24 MB <small>free</small></dd>
+          <span class="detail">The free tier holds a 24 MB card. Bigger shots weigh more. When it fills, format it — or move to Pro, where there is no card.</span>
+        </button>
+        <button type="button" aria-expanded="false">
+          <dt>Export</dt><dd>1080p <small>pro</small></dd>
+          <span class="detail">Free exports up to 480p with a small mark. Pro unlocks every resolution to 1080p, clean, plus every processing control.</span>
+        </button>
+      </dl>
+    </div>
+  </section>
+
+  <section class="menu" id="menu">
+    <div class="wrap">
+      <span class="eyebrow">Menu — 4 screens</span>
+      <ol>
+        <li><a href="manual/"><span class="idx">M1</span> Field Manual <span class="arw" aria-hidden="true">↗</span></a></li>
+        <li><a href="support/"><span class="idx">M2</span> Support &amp; FAQ <span class="arw" aria-hidden="true">↗</span></a></li>
+        <li><a href="privacy/"><span class="idx">M3</span> Privacy Policy <span class="arw" aria-hidden="true">↗</span></a></li>
+        <li><a href="terms/"><span class="idx">M4</span> Terms of Use <span class="arw" aria-hidden="true">↗</span></a></li>
+      </ol>
+      <div class="menu-foot">
+        <a href="mailto:mohammed.sayed201638@gmail.com?subject=AERA">Email the developer</a>
+        <span class="menu-hint">Move with <kbd>↑</kbd> <kbd>↓</kbd>, open with <kbd>↵</kbd></span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="fmark">AERA</div>
+  <div class="meta">
+    <span>© 2026</span>
+    <span>com.mosayyyed.aera</span>
+    <span>v1.0</span>
+    <span>iOS 17+</span>
+  </div>
+  <div class="sign">Capture another era</div>
+</footer>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>
