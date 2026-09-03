@@ -47,3 +47,24 @@ Any static host. Serves from the domain root cleanly.
   `/<repo>/`; the pages use relative links so that path works.
 
 Local preview: `python3 -m http.server` in this folder.
+
+## Languages
+
+Two locales, one per directory — no build step, no JS dependency, and every
+page is crawlable in both:
+
+```
+/            /manual/     /support/     /privacy/     /terms/       en · ltr
+/ar/         /ar/manual/  /ar/support/  /ar/privacy/  /ar/terms/    ar · rtl
+```
+
+`assets/` is shared. Each page carries `hreflang` alternates and a switch in
+the footer. To add a language, copy `/ar/` to `/<code>/`, translate, set
+`<html lang dir>`, and add the third `hreflang` line — nothing else changes.
+
+**Type follows the app's `Typo.swift` rules exactly:** Almarai for Arabic (the
+same face the app bundles), IBM Plex Mono standing in for SF Mono in Latin,
+and under `[dir="rtl"]` all letter-spacing and uppercasing are switched off —
+tracking severs Arabic's cursive joins and the script has no case. The AERA
+wordmark is the one exception: it is the brand, so it stays Latin and keeps
+its tracking in both.
