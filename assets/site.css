@@ -181,9 +181,10 @@ section { padding-inline: var(--pad); }
   position: relative;
   min-height: min(76vh, 640px);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; gap: 22px;
-  padding-block: clamp(60px, 13vh, 120px);
+  text-align: center; gap: 20px;
+  padding-block: clamp(56px, 12vh, 116px);
 }
+.viewfinder > *:not(.brackets):not(.frame-counter) { flex: none; }
 .brackets span {
   position: absolute; width: 26px; height: 26px; border: 1px solid var(--ink-ghost);
   transition: transform .4s ease;
@@ -201,11 +202,14 @@ section { padding-inline: var(--pad); }
 .frame-counter b { color: var(--amber-dim); font-weight: 500; }
 
 .app-icon {
-  width: clamp(60px, 15vw, 80px); aspect-ratio: 1;
+  flex: none;                       /* don't let the column flex squash it */
+  width: clamp(64px, 16vw, 84px);
+  height: clamp(64px, 16vw, 84px);
+  object-fit: cover;
   border-radius: 23%;
   border: 1px solid rgba(255,255,255,.14);
   box-shadow: 0 10px 34px rgba(0,0,0,.55);
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
 
 .wordmark {
