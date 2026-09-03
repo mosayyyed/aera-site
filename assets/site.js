@@ -50,15 +50,24 @@
   }
   function buzz(ms) { if (navigator.vibrate) navigator.vibrate(ms); }
 
-  function paintShutter(label) {
+  /* every string comes off the markup, so the page's own language owns it */
+  function say(el, key, fallback) {
+    return (el && el.getAttribute("data-" + key)) || fallback;
+  }
+  function paintShutter(which) {
     var full = frames >= TOTAL;
     if (shutter) {
       shutter.style.setProperty("--p", (frames / TOTAL * 100).toFixed(1));
       shutter.toggleAttribute("data-full", full);
-      shutter.setAttribute("aria-label", full ? "Format the card" : "Take a shot");
+      shutter.setAttribute("aria-label", full
+        ? say(shutter, "label-full", "Format the card")
+        : say(shutter, "label-idle", "Take a shot"));
     }
     if (wrap) wrap.toggleAttribute("data-full", full);
-    if (hint) hint.textContent = label || (full ? "Card full — tap to format" : "Tap to shoot");
+    if (hint) hint.textContent = which
+      ? say(hint, which, which)
+      : (full ? say(hint, "full", "Card full — tap to format")
+              : say(hint, "idle", "Tap to shoot"));
     if (counter) {
       counter.firstChild.textContent = String(frames).padStart(3, "0");
       counter.style.color = full ? "var(--amber)" : "";
@@ -72,7 +81,7 @@
         frames = 0;
         tone(320, 120, 0.16, 0.05);
         buzz([8, 40, 8]);
-        paintShutter("Formatted");
+        paintShutter("done");
         setTimeout(function () { paintShutter(); }, 1000);
         return;
       }
