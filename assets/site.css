@@ -301,7 +301,7 @@ section { padding-inline: var(--pad); }
 }
 .subhead { margin: 0; max-width: 42ch; font-size: 13px; color: var(--ink-dim); }
 
-.hero-controls { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: center; padding-bottom: 24px; }
+.hero-controls { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: center; }
 
 .cta {
   display: inline-flex; align-items: center; gap: 10px;
@@ -316,7 +316,7 @@ section { padding-inline: var(--pad); }
 /* The shutter: a real one — a white disc inside a ring that fills as the
    card does. The ring is a meter, which is the one job amber has; the
    button surface itself stays black and white. */
-.shutter-wrap { position: relative; width: 64px; height: 64px; flex: none; }
+.shutter-wrap { width: 64px; height: 64px; flex: none; }
 
 .shutter {
   --p: 0;                                  /* 0–100, set from JS */
@@ -347,12 +347,11 @@ section { padding-inline: var(--pad); }
 .shutter:focus-visible { outline: 1px solid var(--amber); outline-offset: 5px; }
 
 .shutter-hint {
-  position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%);
-  white-space: nowrap;
+  margin: 0; text-align: center;
   font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase;
   color: var(--ink-ghost); transition: color .2s;
 }
-.shutter-wrap[data-full] .shutter-hint { color: var(--amber); }
+.shutter-hint.is-full { color: var(--amber); }
 
 @media (prefers-reduced-motion: reduce) {
   .shutter::after, .shutter::before { transition: none; }

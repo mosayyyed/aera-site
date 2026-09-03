@@ -63,7 +63,7 @@
         ? say(shutter, "label-full", "Format the card")
         : say(shutter, "label-idle", "Take a shot"));
     }
-    if (wrap) wrap.toggleAttribute("data-full", full);
+    if (hint) hint.classList.toggle("is-full", full);
     if (hint) hint.textContent = which
       ? say(hint, which, which)
       : (full ? say(hint, "full", "Card full — tap to format")
