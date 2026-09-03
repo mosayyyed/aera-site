@@ -278,11 +278,15 @@ section { padding-inline: var(--pad); }
 .spec-grid dd { margin: 0; font-size: 14px; font-weight: 500; color: var(--ink); }
 .spec-grid dd small { color: var(--amber-dim); font-size: 11px; letter-spacing: .1em; }
 .spec-grid .detail {
-  font-size: 10.5px; color: var(--ink-dim); letter-spacing: .02em;
+  display: block;
+  font-size: 10.5px; line-height: 1.55; color: var(--ink-dim); letter-spacing: .02em;
   max-height: 0; opacity: 0; overflow: hidden;
-  transition: max-height .22s ease, opacity .18s;
+  transition: max-height .28s ease, opacity .2s, padding-top .28s ease;
 }
-.spec-grid > button[aria-expanded="true"] .detail { max-height: 4em; opacity: 1; }
+.spec-grid > button[aria-expanded="true"] .detail {
+  max-height: 22em;           /* well past the longest string, at any width */
+  opacity: 1; padding-top: 5px;
+}
 @media (max-width: 720px) {
   .spec-grid { grid-template-columns: repeat(2, 1fr); }
   .spec-grid > button:nth-child(3) { border-left: 0; }
