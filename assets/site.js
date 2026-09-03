@@ -5,24 +5,15 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
-  /* ── status bar: card meter + live clock ──────────────────── */
-  var meter = $(".meter");
-  if (meter) {
-    for (var i = 0; i < 16; i++) {
-      var b = document.createElement("i");
-      if (i >= 13) b.style.opacity = ".16";
-      meter.appendChild(b);
-    }
-  }
-  var clock = $("#clock"), dateEl = $("#date");
-  var MON = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+  /* ── S60 status bar: live clock ───────────────────────────── */
+  var clock = $("#clock");
   (function tick() {
-    var d = new Date();
-    if (clock) clock.textContent =
-      String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
-    if (dateEl) dateEl.textContent =
-      String(d.getDate()).padStart(2, "0") + " " + MON[d.getMonth()];
-    setTimeout(tick, 20000);
+    if (clock) {
+      var d = new Date();
+      clock.textContent = String(d.getHours()).padStart(2, "0") + ":" +
+        String(d.getMinutes()).padStart(2, "0");
+    }
+    setTimeout(tick, 15000);
   })();
 
   /* ── power-on flicker on the wordmark, once ───────────────── */
