@@ -1,8 +1,8 @@
 /* ─────────────────────────────────────────────────────────────
    AERA — the marketing + legal site, built as the LCD viewfinder
-   of a phone that stopped being made in 2004. One committed world:
-   near-black ground, pure white ink, one amber indicator. Multi-
-   page, but the pages flip like screens in the camera's own menu.
+   of a phone from 2007. One committed world: near-black ground,
+   pure white ink, one amber indicator. Multi-page, but the pages
+   flip like screens in the camera's own menu.
    ───────────────────────────────────────────────────────────── */
 
 @font-face {
@@ -41,7 +41,7 @@
   --sk-h: 40px;
   --rail-w: 232px;
 
-  /* S60 chrome — the pale blue of a 2003 camera app, a soft even wash
+  /* S60 chrome — the pale blue of a 2007 camera app, a soft even wash
      (no hard gloss seam) and always ABOVE the film-grain layer so the
      chrome stays crisp while only the viewfinder gets the texture */
   --s60: linear-gradient(180deg, #e8eef2 0%, #d0dde5 55%, #c6d4dd 100%);

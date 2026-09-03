@@ -1,7 +1,7 @@
 # AERA — site
 
 Marketing + legal home for **AERA**, an iOS camera app that runs your phone's
-camera through a simulated 2003 cameraphone. Static, no build step, no
+camera through a simulated 2007 cameraphone. Static, no build step, no
 dependencies. Bundle id `com.mosayyyed.aera`.
 
 ## Structure
