@@ -33,7 +33,7 @@ Then set the same two in the app's `Legal.swift`.
 
 ## Still to fill in
 
-- **App Store link** — `index.html`, the `.cta` href is `id0000000000`.
+- **App Store link** — `index.html`, the `.cta` and softkey hrefs point at `id6806849273` — confirm it once the listing is public.
 - **Support email** — currently `mohammed.sayed201638@gmail.com`; swap for a
   dedicated address if you want one.
 - **Governing law** — `terms/` says Arab Republic of Egypt.
