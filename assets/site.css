@@ -411,6 +411,14 @@ section { padding-inline: var(--pad); }
   transition: padding-inline-start .18s;
 }
 .menu li a .idx { font-size: 10px; letter-spacing: .2em; color: var(--ink-ghost); font-variant-numeric: tabular-nums; }
+/* arrows and key glyphs: pin to the Latin mono and force text (not emoji)
+   presentation — Almarai has no glyph for ↗ ↑ ↓, so an Arabic page would
+   otherwise fall back to the colour-emoji font */
+.menu li a .arw,
+.menu-hint kbd,
+.rail .rail-back,
+.lang span { font-family: "IBM Plex Mono", ui-monospace, "Courier New", monospace; font-variant-emoji: text; }
+
 .menu li a .arw { margin-inline-start: auto; color: var(--ink-ghost); transition: color .18s, transform .18s; }
 .menu li a::before { content: "▸"; position: absolute; inset-inline-start: 0; color: var(--amber); opacity: 0; transition: opacity .18s; }
 .menu li a:hover, .menu li a:focus-visible, .menu li[data-active] a { padding-inline-start: 18px; }
