@@ -16,6 +16,12 @@
     setTimeout(tick, 15000);
   })();
 
+  /* ── on a subpage, bring the current tab into view in the strip ─ */
+  var current = $('.rail nav a[aria-current="page"]');
+  if (current && current.scrollIntoView) {
+    current.scrollIntoView({ block: "nearest", inline: "center" });
+  }
+
   /* ── power-on flicker on the wordmark, once ───────────────── */
   if (!reduce) {
     var wm = $(".wordmark");

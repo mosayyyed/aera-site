@@ -185,6 +185,11 @@ section { padding-inline: var(--pad); }
   padding-block: clamp(56px, 12vh, 116px);
 }
 .viewfinder > *:not(.brackets):not(.frame-counter) { flex: none; }
+/* short screens: let the hero be its own height so nothing hides behind
+   the fixed softkey bar */
+@media (max-height: 680px) {
+  .viewfinder { min-height: 0; padding-block: clamp(44px, 9vh, 84px); gap: 16px; }
+}
 .brackets span {
   position: absolute; width: 26px; height: 26px; border: 1px solid var(--ink-ghost);
   transition: transform .4s ease;
@@ -295,7 +300,7 @@ section { padding-inline: var(--pad); }
 
 /* ── the menu (index) ──────────────────────────────────────── */
 .menu { padding-block: clamp(52px, 10vh, 96px); scroll-margin-top: 46px; }
-#content { scroll-margin-top: 46px; }
+#content { scroll-margin-top: 92px; }
 .menu .eyebrow { display: block; font-size: 10px; letter-spacing: .34em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 20px; }
 .menu ol { list-style: none; margin: 0; padding: 0; counter-reset: m; }
 .menu li { border-top: 1px solid var(--hair); }
@@ -345,21 +350,45 @@ section { padding-inline: var(--pad); }
 .rail .rail-back { display: block; margin-top: 26px; padding: 12px 24px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-ghost); }
 .rail .rail-back:hover { color: var(--amber); }
 
-.content { padding: clamp(40px, 8vh, 72px) var(--pad) clamp(56px, 10vh, 96px); min-width: 0; }
+.content { padding: clamp(40px, 8vh, 72px) var(--pad) clamp(64px, 10vh, 96px); min-width: 0; }
 
 @media (max-width: 820px) {
   .screen { grid-template-columns: 1fr; }
+  /* the rail becomes a single horizontal tab strip; the AERA mark and the
+     "back to viewfinder" link are dropped here — the softkey bar carries both */
   .rail {
-    position: static; min-height: 0; border-right: 0; border-bottom: 1px solid var(--hair);
-    padding: 20px 0 8px;
-    display: flex; flex-wrap: wrap; align-items: center; gap: 4px;
+    position: sticky; top: var(--bar-h); z-index: 30;
+    min-height: 0; border-right: 0; border-bottom: 1px solid var(--hair);
+    padding: 0;
+    background: var(--ground);
+    background: color-mix(in srgb, var(--ground) 92%, transparent);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
   }
-  .rail .rail-mark { padding: 0 var(--pad); flex-basis: 100%; margin-bottom: 8px; }
-  .rail nav { display: flex; overflow-x: auto; width: 100%; padding: 0 calc(var(--pad) - 24px); scrollbar-width: none; }
+  .rail .rail-mark, .rail .rail-back { display: none; }
+  .rail nav {
+    display: flex; overflow-x: auto; width: 100%;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+  }
   .rail nav::-webkit-scrollbar { display: none; }
-  .rail nav a { border-left: 0; border-bottom: 2px solid transparent; white-space: nowrap; }
-  .rail nav a[aria-current="page"] { border-left: 0; border-bottom-color: var(--amber); }
-  .rail .rail-back { padding: 10px var(--pad); }
+  .rail nav a {
+    border-left: 0; border-bottom: 2px solid transparent;
+    white-space: nowrap; padding: 14px 16px; scroll-snap-align: center;
+    font-size: 11px;
+  }
+  .rail nav a:first-child { padding-left: var(--pad); }
+  .rail nav a:last-child { padding-right: var(--pad); }
+  .rail nav a[aria-current="page"] { border-bottom-color: var(--amber); }
+
+  .content { padding-top: clamp(28px, 5vh, 44px); }
+}
+
+@media (max-width: 480px) {
+  .doc-head { margin-bottom: 24px; }
+  .doc-body { font-size: 15px; }
+  .pager { flex-direction: column; gap: 24px; }
+  .pager a.next { align-items: flex-start; text-align: left; }
+  .callout { font-size: 12.5px; }
 }
 
 /* ── doc content ───────────────────────────────────────────── */
@@ -368,7 +397,7 @@ section { padding-inline: var(--pad); }
 .doc-head h1 { margin: 0; font-weight: 500; font-size: clamp(26px, 5.6vw, 40px); letter-spacing: .04em; color: var(--ink); flex-basis: 100%; text-wrap: balance; }
 .doc-head .stamp { font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-ghost); }
 
-.doc-body { max-width: var(--measure); font-family: var(--sans); font-size: 15.5px; line-height: 1.72; color: rgba(255,255,255,.82); }
+.doc-body { max-width: var(--measure); font-family: var(--sans); font-size: 15.5px; line-height: 1.72; color: rgba(255,255,255,.82); overflow-wrap: break-word; }
 .doc-body > * + * { margin-top: 1.05em; }
 .doc-body h2 { font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink); margin-top: 2.4em; }
 .doc-body h2:first-child { margin-top: 0; }
