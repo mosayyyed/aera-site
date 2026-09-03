@@ -62,9 +62,11 @@ page is crawlable in both:
 the footer. To add a language, copy `/ar/` to `/<code>/`, translate, set
 `<html lang dir>`, and add the third `hreflang` line — nothing else changes.
 
-**Type follows the app's `Typo.swift` rules exactly:** Almarai for Arabic (the
-same face the app bundles), IBM Plex Mono standing in for SF Mono in Latin,
-and under `[dir="rtl"]` all letter-spacing and uppercasing are switched off —
-tracking severs Arabic's cursive joins and the script has no case. The AERA
-wordmark is the one exception: it is the brand, so it stays Latin and keeps
-its tracking in both.
+**Type follows the app's `Typo.swift` rules.** The font list leads with the
+Latin face (IBM Plex Mono / Sans, standing in for SF Mono) and keeps Almarai
+right behind it, so `font-family` resolves per character: Latin always renders
+in IBM Plex — identical on an English page and inside an Arabic sentence —
+and only the Arabic letters fall to Almarai. Under `[dir="rtl"]` letter-spacing
+and uppercasing are off (tracking severs Arabic's cursive joins; the script
+has no case). The AERA wordmark is the exception: brand, so Latin with its
+tracking in both.

@@ -26,10 +26,14 @@
 
   /* The app's own pairing, on the web. SF Mono has no web release, so
      IBM Plex Mono stands in for the Latin; Almarai is the very face the
-     app ships for Arabic (SIL OFL), so the two read identically. */
-  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --ar:   "Almarai", "Segoe UI", Tahoma, sans-serif;
+     app ships for Arabic (SIL OFL).
+
+     font-family resolves per character: the Latin face leads and Almarai
+     sits right behind it, so Latin always renders in IBM Plex — the same
+     on an English page and inside an Arabic sentence — and only the
+     Arabic letters fall through to Almarai. One list, both directions. */
+  --mono: "IBM Plex Mono", "Almarai", ui-monospace, "SF Mono", Menlo, monospace;
+  --sans: "IBM Plex Sans", "Almarai", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --measure: 66ch;
   --pad: clamp(20px, 5vw, 64px);
@@ -46,17 +50,15 @@
 }
 
 /* ── Arabic ─────────────────────────────────────────────────────
-   The same three rules the app enforces in `Typo.swift`:
-   Almarai for Arabic, a hair larger than the Latin at the same nominal
-   size; NO letter-spacing, because the script is cursive and tracking
-   severs the joins; NO uppercasing, because Arabic has no case.
-   The AERA wordmark is the one exception — it is the brand, so it stays
-   Latin and keeps its tracking in both languages. */
+   The three rules the app enforces in `Typo.swift`: Almarai for the
+   Arabic (the font list above already handles the mixing), a hair
+   larger because Almarai reads small at a matched size; NO
+   letter-spacing, because the script is cursive and tracking severs
+   the joins; NO uppercasing, because Arabic has no case. The AERA
+   wordmark is the one exception — it is the brand, so it stays Latin
+   and keeps its tracking in both languages. */
 [dir="rtl"] {
-  --mono: var(--ar);
-  --sans: var(--ar);
-  font-family: var(--ar);
-  font-size: 16px;                    /* Almarai reads small at matched sizes */
+  font-size: 16px;
   line-height: 1.75;
 }
 [dir="rtl"] * { letter-spacing: 0 !important; text-transform: none !important; }
