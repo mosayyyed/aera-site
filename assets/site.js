@@ -22,47 +22,67 @@
     if (wm) requestAnimationFrame(function () { wm.classList.add("flick"); });
   }
 
-  /* ── frame counter fills as you read (001 → 024) ──────────── */
-  var fc = $(".frame-counter");
-  if (fc) {
-    var total = 24;
-    var render = function () {
-      var h = document.documentElement;
-      var max = h.scrollHeight - h.clientHeight;
-      var p = max > 0 ? Math.min(1, h.scrollTop / max) : 0;
-      var n = Math.max(1, Math.round(p * total));
-      fc.firstChild.textContent = String(n).padStart(3, "0");
-    };
-    render();
-    addEventListener("scroll", render, { passive: true });
-  }
-
-  /* ── shutter: white flash + counter bump + a dry click ────── */
-  var flash = $("#flash");
+  /* ── the shutter, and the card it fills ─────────────────────
+     Press it and you shoot: flash, click, haptic, the frame counter
+     ticks and the ring around the button fills. At 24 the card is full
+     — which is the free tier, exactly — and the same button formats it.
+     The whole free-tier loop, in one control. */
+  var flash   = $("#flash");
   var shutter = $(".shutter");
-  var actx = null, frames = 0;
-  function click() {
+  var wrap    = $(".shutter-wrap");
+  var hint    = $(".shutter-hint");
+  var counter = $(".frame-counter");
+  var TOTAL = 24, frames = 0, actx = null;
+
+  function tone(from, to, dur, vol) {
     try {
       actx = actx || new (window.AudioContext || window.webkitAudioContext)();
       var t = actx.currentTime;
       var o = actx.createOscillator(), g = actx.createGain();
-      o.type = "square"; o.frequency.setValueAtTime(1800, t);
-      o.frequency.exponentialRampToValueAtTime(220, t + 0.04);
-      g.gain.setValueAtTime(0.06, t);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.06);
+      o.type = "square";
+      o.frequency.setValueAtTime(from, t);
+      o.frequency.exponentialRampToValueAtTime(to, t + dur * 0.6);
+      g.gain.setValueAtTime(vol, t);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
       o.connect(g); g.connect(actx.destination);
-      o.start(t); o.stop(t + 0.07);
+      o.start(t); o.stop(t + dur + 0.01);
     } catch (e) { /* audio blocked — fine */ }
   }
+  function buzz(ms) { if (navigator.vibrate) navigator.vibrate(ms); }
+
+  function paintShutter(label) {
+    var full = frames >= TOTAL;
+    if (shutter) {
+      shutter.style.setProperty("--p", (frames / TOTAL * 100).toFixed(1));
+      shutter.toggleAttribute("data-full", full);
+      shutter.setAttribute("aria-label", full ? "Format the card" : "Take a shot");
+    }
+    if (wrap) wrap.toggleAttribute("data-full", full);
+    if (hint) hint.textContent = label || (full ? "Card full — tap to format" : "Tap to shoot");
+    if (counter) {
+      counter.firstChild.textContent = String(frames).padStart(3, "0");
+      counter.style.color = full ? "var(--amber)" : "";
+    }
+  }
+
   if (shutter) {
+    paintShutter();
     shutter.addEventListener("click", function () {
-      if (flash && !reduce) { flash.classList.remove("fire"); void flash.offsetWidth; flash.classList.add("fire"); }
-      click();
-      if (navigator.vibrate) navigator.vibrate(12);
-      frames = Math.min(24, frames + 1);
-      var lbl = shutter.querySelector("span");
-      if (lbl) lbl.textContent = frames >= 24 ? "FULL" : String(frames).padStart(3, "0");
-      if (frames >= 24) shutter.setAttribute("title", "Card full — that's the free tier.");
+      if (frames >= TOTAL) {                       // full → format the card
+        frames = 0;
+        tone(320, 120, 0.16, 0.05);
+        buzz([8, 40, 8]);
+        paintShutter("Formatted");
+        setTimeout(function () { paintShutter(); }, 1000);
+        return;
+      }
+      frames++;
+      if (flash && !reduce) {                      // shutter flash
+        flash.classList.remove("fire"); void flash.offsetWidth; flash.classList.add("fire");
+      }
+      tone(1800, 220, 0.07, 0.06);
+      buzz(12);
+      paintShutter();
     });
   }
 

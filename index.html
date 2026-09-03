@@ -33,7 +33,7 @@
 <main>
   <section class="viewfinder">
     <div class="brackets" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-    <div class="frame-counter" aria-hidden="true">001<b>/</b>024</div>
+    <div class="frame-counter" id="frames" aria-live="polite">000<b>/</b>024</div>
 
     <span class="app-icon" role="img" aria-label="AERA app icon — a silver camera module set in a dark body"></span>
     <h1 class="wordmark">AERA</h1>
@@ -42,7 +42,10 @@
 
     <div class="hero-controls">
       <a class="cta" href="https://apps.apple.com/app/id6806849273">On the App Store</a>
-      <button class="shutter" type="button" aria-label="Fire the shutter"><span>REC</span></button>
+      <span class="shutter-wrap">
+        <button class="shutter" type="button" aria-label="Take a shot" aria-describedby="frames"></button>
+        <span class="shutter-hint">Tap to shoot</span>
+      </span>
     </div>
     <p class="cta-note">Free · Pro tier · ad-supported</p>
   </section>
