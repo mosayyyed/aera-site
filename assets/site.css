@@ -61,20 +61,22 @@
 }
 [dir="rtl"] * { letter-spacing: 0 !important; text-transform: none !important; }
 [dir="rtl"] .tagline,
-[dir="rtl"] .sign,
-[dir="rtl"] footer .fmark { text-indent: 0 !important; }
+[dir="rtl"] .sign { text-indent: 0 !important; }
+
+/* Latin islands inside the RTL page — the wordmark, the clock, the frame
+   counter. Forced back to LTR so their tracking and the centring trick
+   behave exactly as they do on the English page (an RTL text-indent
+   pushes the mark off to one side). */
 [dir="rtl"] .wordmark,
+[dir="rtl"] footer .fmark,
 [dir="rtl"] .s60-clock,
-[dir="rtl"] .frame-counter,
-[dir="rtl"] .shutter-hint { font-family: var(--mono), "IBM Plex Mono", monospace; }
-[dir="rtl"] .wordmark,
-[dir="rtl"] footer .fmark {
+[dir="rtl"] .frame-counter {
   font-family: "IBM Plex Mono", ui-monospace, monospace;
-  letter-spacing: .40em !important;
+  direction: ltr;
+  unicode-bidi: isolate;
 }
+[dir="rtl"] .wordmark { letter-spacing: .40em !important; text-align: center; }
 [dir="rtl"] footer .fmark { letter-spacing: .5em !important; }
-[dir="rtl"] .s60-clock { font-family: "IBM Plex Mono", ui-monospace, monospace; }
-[dir="rtl"] .frame-counter { font-family: "IBM Plex Mono", ui-monospace, monospace; }
 
 /* The viewfinder frame and the ↗ stay identical in both directions —
    a frame is symmetric and the arrow is the same affordance. Only the
@@ -304,14 +306,15 @@ section { padding-inline: var(--pad); }
 .hero-controls { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: center; }
 
 .cta {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 15px 24px; border: 1px solid var(--ink);
+  display: inline-flex; align-items: center; gap: 11px;
+  padding: 14px 24px 14px 22px; border: 1px solid var(--ink);
   font-size: 12px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase;
   color: var(--ground); background: var(--ink);
-  transition: background .16s, color .16s, gap .16s;
+  transition: background .16s, color .16s;
 }
+[dir="rtl"] .cta { padding: 14px 22px 14px 24px; letter-spacing: 0; }
 .cta:hover { background: transparent; color: var(--ink); }
-.cta svg { width: 15px; height: 15px; fill: currentColor; flex: none; }
+.cta svg { width: 20px; height: 20px; fill: currentColor; flex: none; margin-block: -2px; }
 
 /* The shutter: a real one — a white disc inside a ring that fills as the
    card does. The ring is a meter, which is the one job amber has; the
