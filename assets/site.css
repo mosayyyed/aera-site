@@ -63,7 +63,9 @@ body {
   -webkit-font-smoothing: antialiased;
   min-height: 100dvh;
   padding-bottom: var(--sk-h);   /* clear the fixed softkey bar */
+  isolation: isolate;            /* keep the ambient layers behind content */
 }
+main, footer { position: relative; z-index: 0; }
 
 ::selection { background: var(--amber); color: var(--ground); }
 
@@ -74,21 +76,25 @@ a:focus-visible, button:focus-visible {
 }
 img { max-width: 100%; display: block; }
 
-/* ── ambient ────────────────────────────────────────────────── */
+/* ── ambient ────────────────────────────────────────────────────
+   These sit BEHIND the content (negative z, in body's own stacking
+   context) — they texture the dark ground of the viewfinder, but the
+   wordmark, the app icon, every button and every line of type render
+   clean on top of them, never through them. */
 #grain {
-  position: fixed; inset: 0; z-index: 60;
+  position: fixed; inset: 0; z-index: -2;
   width: 100%; height: 100%;
-  pointer-events: none; opacity: .045;
+  pointer-events: none; opacity: .05;
   mix-blend-mode: screen;
 }
 .scan {
-  position: fixed; inset: 0; z-index: 61; pointer-events: none;
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,.20) 2px 3px);
-  opacity: .5;
+  opacity: .4;
   animation: scan 9s linear infinite;
 }
 .vignette {
-  position: fixed; inset: 0; z-index: 59; pointer-events: none;
+  position: fixed; inset: 0; z-index: -3; pointer-events: none;
   background: radial-gradient(125% 80% at 50% 40%, transparent 42%, rgba(0,0,0,.55) 100%);
 }
 @keyframes scan { to { background-position: 0 120px; } }
